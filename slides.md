@@ -119,7 +119,21 @@ image: /tc_format.png
 # Rust の良い点 (1) 
 
 ## (GCの言語と比べて) 動作が高速
-    * TODO: get | wc -l で速度比較したい。 Perl と比べてもいいかな
+
+```
+$ time tchmgr list -nl casket.tch | wc -l
+1680800
+
+real    0m1.333s
+user    0m0.628s
+sys     0m0.808s
+$ time rstc list casket.tch | wc -l
+1680800
+
+real    0m3.478s
+user    0m1.399s
+sys     0m4.759s
+```
 
 ---
 
