@@ -124,15 +124,15 @@ image: /tc_format.png
 $ time tchmgr list -nl casket.tch | wc -l
 1680800
 
-real    0m1.306s
-user    0m0.618s
-sys     0m0.804s
+real    0m1.298s
+user    0m0.624s
+sys     0m0.784s
 $ time rstc list casket.tch | wc -l
 1680800
 
-real    0m2.910s
-user    0m1.069s
-sys     0m3.849s
+real    0m0.578s
+user    0m0.537s
+sys     0m0.078s
 ```
 
 ---
