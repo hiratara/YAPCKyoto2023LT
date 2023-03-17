@@ -56,9 +56,10 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 <div>
 
 - http://fallabs.com/tokyocabinet/
+- **東側のプロダクトです**
 - Mikio さんが 15 年前に開発した DBM
     - 開発はすでに終了している
-- Hash, B+ Tree, Fixed-length, Table の実装
+    - Hash, B+ Tree, Fixed-length, Table の実装
 - 姉妹プロダクト
     - [QDBM](http://fallabs.com/qdbm/)
     - [Kyoto Cabinet](http://fallabs.com/kyotocabinet/) 
@@ -72,27 +73,47 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 ---
 
-# FreakOut と Tokyo Cabinet (1)
+# Tokyo Cabinet と私 (1)
 
 - オフラインデータベースとして利用
+    - Hash データベースを中心に利用
     - 必要な情報を出力
     - web server の足元に配置し、高速アクセス
-- めちゃくちゃ速い
-    - Perl のハッシュのキーアクセスに毛が生えた程度
-- 扱いがすごく楽
-    - ファイル単位で生成～コピー、再配置が可能
-    - エンディアンに左右されない
 
 ---
 
-# FreakOut と Tokyo Cabinet (2)
+# Tokyo Cabinet と私 (2)
 
+- めちゃくちゃ速い
+    - Perl のハッシュのキーアクセスに毛が生えた程度
+- 扱いがすごく楽
+    - ただのファイルなのでコピーするだけ
 - 同梱の Perl binding がある
-- 良い代替品がない（し、困ってもいない）
 
 <div v-click>
 <img src="/no_tkrzw_perl.png" />
 </div>
+
+---
+
+# Tokyo Cabinet  と私 (3)
+
+* 約 30 種類のデータベースファイル
+* 数百 KB ～数十 GB のサイズ
+* 数千万件のデータ
+* チューニング法など、中身をよく知りたい
+
+---
+
+# Rust で再実装
+
+https://github.com/hiratara/rs-tchread
+
+- 自分が長年使っているものをよく知りたい
+- Rust を書く練習をしたい
+- 「ハッシュデータベース」の「読み込み」に的を絞って実装
+    - `tchmgr` の `get` `list` 辺りの機能が目標
+    - せっかくならオマケ機能も
 
 ---
 layout: image-right
@@ -102,17 +123,8 @@ image: /tc_format.png
 # Tokyo Cabinet の仕様
 
 - [ドキュメント](http://fallabs.com/tokyocabinet/spex-ja.html) によく書かれている
+    - 実装には色々なノウハウが詰め込まれているが、ファイルフォーマットは非常にシンプル
 - [mixi engineer blog](https://mixiengineer.hatenablog.com/entry/2007/10665/)
-- 実装には色々なノウハウが詰め込まれているが、ファイルフォーマットは非常にシンプル
-
----
-
-# Rust で再実装
-
-- 自分が長年使っているものをよく知りたい
-- Rust を書く練習をしたい
-- 「ハッシュデータベース」の「読み込み」に的を絞って実装
-- `tchmgr` の `get` `list` 辺りの機能が目標
 
 ---
 
