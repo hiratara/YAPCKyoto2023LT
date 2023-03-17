@@ -223,7 +223,7 @@ sys     0m0.053s
 統計情報（バケットの利用状況、パディング長など）。
 
 ```
-rs-tchread inspect casket.tch
+$ rs-tchread inspect casket.tch
 # of buckets: 100663291
 # of empty buckets: 42791771
 # of records: 86118651
