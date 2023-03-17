@@ -219,47 +219,72 @@ pub struct Header {
 
 ---
 
-# Tokyo Cabinet の細かいバグ (1)
+# おまけ機能 (1)
 
-ドキュメントがおかしい。
+統計情報（バケットの利用状況、パディング長など）。
 
-> データベースタイプ
-> ハッシュ表（0x01）かB+木（0x02）か固定長（0x03）かテーブル（0x04）
-
-```c
-enum {                                   /* enumeration for database type */
-  TCDBTHASH,                             /* hash table */
-  TCDBTBTREE,                            /* B+ tree */
-  TCDBTFIXED,                            /* fixed-length */
-  TCDBTTABLE                             /* table */
-};
+```
+rs-tchread inspect casket.tch
+# of buckets: 100663291
+# of empty buckets: 42791771
+# of records: 86118651
+# of records without children: 60198570
+# of records with one child: 23593031
+# of records with two children: 2327050
+avg of key length: 27.00043954473927
+avg of value length: 141.19580666678115
+avg of padding length: 8.889789228119701
+# of free blocks: 0
 ```
 
 ---
 
-# Tokyo Cabinet の細かいバグ (2)
+# おまけ機能 (2)
 
-コメントが逆。
+バケットの dump 。
 
-```c
-/* Load the free block pool from the file.
-   The return value is true if successful, else, it is false. */
-static bool tchdbsavefbp(TCHDB *hdb){
 ```
-
-```c
-/* Save the free block pool into the file.
-   The return value is true if successful, else, it is false. */
-static bool tchdbloadfbp(TCHDB *hdb){
+$ rs-tchread dump-bucket casket.tch 1
+record 1: hash=129, key=p
+record 2: hash=131, key=r
+record 3: hash=133, key=t
+record 4: hash=135, key=v
+record 5: hash=139, key=z
+record 6: hash=147, key=b
+record 7: hash=149, key=d
+record 8: hash=151, key=f
+record 9: hash=153, key=h
+record 10: hash=155, key=j
+record 11: hash=157, key=l
+record 12: hash=159, key=n
 ```
 
 ---
 
-# Tokyo Cabinet の細かいバグ (3)
+# おまけ機能 (3)
 
-* aptで入るdebian/ubuntuの Tokyo Cabinet の endian が逆
-    * 他の環境で生成したDBとの互換がない
-    * `--enable-swab` オプションは big endian 環境では動かない
+キーの深さ。
+
+```
+$ rs-tchread trace-to-get casket.tch h
+bucket: 1
+hash: 153
+record 1: hash=147, key=b
+record 2: hash=149, key=d
+record 3: hash=151, key=f
+record 4: hash=153, key=h
+7
+```
+
+---
+
+# おまけ機能 (4)
+
+`rs-tchread --bigendian`
+
+* aptで入るdebian/ubuntuの Tokyo Cabinet は壊れている 
+    * endian が逆で、他の環境で生成したDBとの互換がない
+* `--enable-swab` オプションは big endian 環境では動かない
 * [Bug#667979: libtokyocabinet9: TokyoCabinet got endianness in DB wrong on both big- and little-endian architectures](https://debian-bugs-dist.debian.narkive.com/I4IA9otI/bug-667979-libtokyocabinet9-tokyocabinet-got-endianness-in-db-wrong-on-both-big-and-little-endian)
     * 11 years ago
 
