@@ -128,41 +128,12 @@ image: /tc_format.png
 
 ---
 
-# Rust の良い点 (1) 
-
-## (GCの言語と比べて) 動作が高速
-
-```
-$ time perl tchcount.pl casket.tch
-1680800
-
-real    0m2.273s
-user    0m1.774s
-sys     0m0.499s
-
-$ time tchmgr list -nl casket.tch | wc -l
-1680800
-
-real    0m1.259s
-user    0m0.609s
-sys     0m0.746s
-
-$ time rs-tchread list casket.tch | wc -l
-1680800
-
-real    0m0.631s
-user    0m0.618s
-sys     0m0.053s
-```
-
----
-
-# Rust の良い点 (2) 
+# Rust の良い点 (1)
 
 ## (Cと比べて) ジェネリクスが強力
 
-* `R` → ファイル以外の読み込みに対応
-* `B` → 32bit/64bit のフォーマットに対応
+* `R` → file/on memory に同時に対応
+* `B` → 32bit/64bit に同時に対応
 * Zero Cost Abstractions: コンパイル時に展開
 
 ```rust
@@ -177,7 +148,7 @@ pub struct TCHDBImpl<B, R> {
 
 ---
 
-# Rust の良い点 (3) 
+# Rust の良い点 (2) 
 
 ## crates.io の資源が使える
 
@@ -216,6 +187,34 @@ pub struct Header {
 ```
 </div>
 </div>
+---
+
+# Rust の良い点 (3)
+
+## 動作が C 並に高速
+
+```
+$ time perl tchcount.pl casket.tch
+1680800
+
+real    0m2.273s
+user    0m1.774s
+sys     0m0.499s
+
+$ time tchmgr list -nl casket.tch | wc -l
+1680800
+
+real    0m1.259s
+user    0m0.609s
+sys     0m0.746s
+
+$ time rs-tchread list casket.tch | wc -l
+1680800
+
+real    0m0.631s
+user    0m0.618s
+sys     0m0.053s
+```
 
 ---
 
@@ -241,6 +240,8 @@ avg of padding length: 8.889789228119701
 
 # おまけ機能 (2)
 
+<div grid="~ cols-2 gap-4">
+<div>
 バケットの dump 。
 
 ```
@@ -259,9 +260,8 @@ record 11: hash=157, key=l
 record 12: hash=159, key=n
 ```
 
----
-
-# おまけ機能 (3)
+</div>
+<div>
 
 キーの深さ。
 
@@ -276,9 +276,12 @@ record 4: hash=153, key=h
 7
 ```
 
+</div>
+</div>
+
 ---
 
-# おまけ機能 (4)
+# おまけ機能 (3)
 
 `rs-tchread --bigendian`
 
