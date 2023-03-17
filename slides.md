@@ -121,18 +121,26 @@ image: /tc_format.png
 ## (GCの言語と比べて) 動作が高速
 
 ```
+$ time perl tchcount.pl casket.tch
+1680800
+
+real    0m2.273s
+user    0m1.774s
+sys     0m0.499s
+
 $ time tchmgr list -nl casket.tch | wc -l
 1680800
 
-real    0m1.298s
-user    0m0.624s
-sys     0m0.784s
-$ time rstc list casket.tch | wc -l
+real    0m1.259s
+user    0m0.609s
+sys     0m0.746s
+
+$ time rs-tchread list casket.tch | wc -l
 1680800
 
-real    0m0.578s
-user    0m0.537s
-sys     0m0.078s
+real    0m0.631s
+user    0m0.618s
+sys     0m0.053s
 ```
 
 ---
