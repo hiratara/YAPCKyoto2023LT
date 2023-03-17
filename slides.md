@@ -137,7 +137,7 @@ image: /tc_format.png
 * Zero Cost Abstractions: コンパイル時に展開
 
 ```rust
-pub struct TCHDBImpl<B, R> {
+pub struct TCHDB<B, R> {
     pub reader: R,
     pub header: Header,
     pub bucket_offset: u64, // always be 256
