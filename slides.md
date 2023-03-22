@@ -14,7 +14,8 @@ lineNumbers: false
 info: LT for YAPC::Kyoto 2023
 # persist drawings in exports and build
 drawings:
-  persist: false
+  # persist: false
+  persist: true
 # page transition
 transition: fade-out
 # use UnoCSS
